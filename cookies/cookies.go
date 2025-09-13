@@ -17,13 +17,14 @@ type localCookie struct {
 }
 
 func NewLoadCookie(path string) Cookier {
-	if path == "" {
-		panic("path is required")
-	}
+    if path == "" {
+        panic("path is required")
+    }
 
-	if err := os.MkdirAll(filepath.Dir(path), 0644); err != nil {
-		panic(err)
-	}
+    // 目录需要可执行位，使用 0755
+    if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+        panic(err)
+    }
 
 	return &localCookie{
 		path: path,
